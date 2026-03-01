@@ -10,6 +10,7 @@ import Wishlist from './Pages/Wishlist.jsx'
 import Login from './Pages/Login.jsx'
 import Products from './Componets/Products.jsx'
 import Productform from './Componets/Productform.jsx'
+import ProductCard from './Componets/ProductCard.jsx'
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path:'/createProduct',
         element : <Products/>
+      },
+      {
+        path: '/productcard',
+        element:<ProductCard/>
       },
       {
         path:"wishlist",
