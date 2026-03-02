@@ -1,11 +1,10 @@
 import React from "react";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
-import { NavLink } from "react-router-dom";
-import {setdata} from '../Utils/setstorage'
-import {getdata,CART_STORAGE_KEY} from '../Utils/getstorage'
+import { NavLink, useNavigate } from "react-router-dom";
+import { setdata } from "../Utils/setstorage";
+import { getdata, CART_STORAGE_KEY,PRODUCTS_STORAGE_KEY } from "../Utils/getstorage";
 const Productform = () => {
-  console.log("form redering")
   let {
     register,
     handleSubmit,
@@ -13,11 +12,14 @@ const Productform = () => {
     formState: { errors },
   } = useForm();
 
-  function formhandle(data){
-   let productdata =  getdata(CART_STORAGE_KEY)||[]  // maine phele data isliye get kiya because i want have array
-   let latestdata  =[...productdata,data]
-    setdata(CART_STORAGE_KEY,latestdata)
-    reset()
+  let navigate = useNavigate();
+
+  function formhandle(data) {
+    let productdata = getdata(PRODUCTS_STORAGE_KEY) || []; // maine phele data isliye get kiya because i want have array
+    let latestdata = [...productdata, data];  
+    setdata(PRODUCTS_STORAGE_KEY, latestdata);
+    navigate("/createProduct");
+    reset();
   }
 
   return (
@@ -39,12 +41,7 @@ const Productform = () => {
             placeholder="Enter Product Price"
             {...register("price", { required: true })}
           />
-          <textarea
-            placeholder="Enter Product Discription"
-            {...register("dicription", { required: true })}
-          ></textarea>
           <Button />
-         
         </form>
       </div>
     </div>

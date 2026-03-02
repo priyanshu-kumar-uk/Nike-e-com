@@ -4,7 +4,7 @@ import Card from '../Componets/Card'
 
 const Shoes = () => {
   return (
-   <div>
+   <div className='shoes-data'>
      <Card/>
    </div>
   )

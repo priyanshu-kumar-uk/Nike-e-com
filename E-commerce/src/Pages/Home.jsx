@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import Products from "../Componets/Card";
 import Card from "../Componets/Card";
+import ProductCard from "../Componets/ProductCard";
 
 const Home = () => {
   return (
@@ -40,7 +41,7 @@ const Home = () => {
                <div className="footer-nav">
                   <NavLink to="/">Home</NavLink>
                  <NavLink to="/about">About Us</NavLink>
-                 <NavLink to="/shop">Shop</NavLink>
+                 <NavLink to="/shoes">Shop</NavLink>
                  <NavLink to="/cart">Cart</NavLink>
                </div>
             </div>
