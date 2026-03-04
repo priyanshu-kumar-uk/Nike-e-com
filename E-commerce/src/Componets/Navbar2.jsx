@@ -13,7 +13,7 @@ const Navbar2 = () => {
             <NavLink to= "shoes">Shoes</NavLink>
         </div>
         <div className="nav2-right">
-         <NavLink to= "wishlist"><i class="ri-store-line"></i></NavLink>
+         <NavLink to= "addcard"><i class="ri-store-line"></i></NavLink>
         </div>
     </div>
   )

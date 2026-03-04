@@ -1,5 +1,6 @@
-import React, { useContext } from "react";
-import {SINGLE_CART_STORAGE_KEY,getdata} from '../Utils/getstorage'
+import {getdata,PRODUCTS_STORAGE_KEY,CART_STORAGE_KEY  } from '../Utils/getstorage'
+import { useNavigate, useParams } from "react-router-dom";
+import {setdata} from '../Utils/setstorage'
 const ProductCard = () => {
   const sizes = [
     {
@@ -22,8 +23,24 @@ const ProductCard = () => {
     },
   ];
  
-  let carddata = getdata(SINGLE_CART_STORAGE_KEY)||{}
+  let navigate = useNavigate()
+
+  const [cardata, setcardata] = useState(getdata(PRODUCTS_STORAGE_KEY)||[])
   
+  let {id} = useParams()  
+   
+ const datas = cardata.find((elem)=>{
+  return elem.id === Number(id)
+ })
+
+ function addCard(){
+  let actualdata = getdata(CART_STORAGE_KEY)||[]
+  let finaldata = [...actualdata,datas]
+  let exits = 
+  setdata(CART_STORAGE_KEY,finaldata)
+   navigate(`/addcard`)
+ }
+
   return (
     <div className="productcard">
       <div className="single-card">
@@ -31,7 +48,7 @@ const ProductCard = () => {
           <div className="card-left">
             <div className="card-left-img">
               <img
-                src={carddata.URL}
+                src={datas.URL}
                 alt=""
               />
             </div>
@@ -39,10 +56,10 @@ const ProductCard = () => {
           <div className="card-right">
             <div className="single-card-title">
               <h1>Nike</h1>
-              <h2>{carddata.name}</h2>
+              <h2>{datas.name}</h2>
             </div>
             <div className="single-card-price">
-              <h1>₹ {carddata.price}</h1>
+              <h1>₹ {datas.price}</h1>
               <p>Inclusive of all taxes</p>
             </div>
             <div className="select-size">
@@ -58,7 +75,7 @@ const ProductCard = () => {
               </div>
             </div>
 
-          <div className="add-cart">ADD TO CART</div>
+          <div className="add-cart" onClick={addCard}>ADD TO CART</div>
           </div>
         </div>
         <div className="w-cart">

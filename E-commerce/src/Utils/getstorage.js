@@ -1,6 +1,5 @@
-export const PRODUCTS_STORAGE_KEY = "v_shop_products"
-export const CART_STORAGE_KEY = 'v_shop_cart'
-export const SINGLE_CART_STORAGE_KEY  = 'v_view-cart'
+export const PRODUCTS_STORAGE_KEY = "v_shop_products"   // store all products
+export const CART_STORAGE_KEY = 'v_shop_cart'        // store add to cart data
 export let getdata = (key)=>{
     if(!key){
         return null

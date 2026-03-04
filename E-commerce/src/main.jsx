@@ -1,4 +1,3 @@
-import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
 import './index.css'
 import App from './App.jsx'
@@ -6,12 +5,12 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import Home from './Pages/Home.jsx'
 import About from './Pages/About.jsx'
 import Shoes from './Pages/Shoes.jsx'
-import Wishlist from './Pages/Wishlist.jsx'
 import Login from './Pages/Login.jsx'
 import Products from './Componets/Products.jsx'
 import Productform from './Componets/Productform.jsx'
 import ProductCard from './Componets/ProductCard.jsx'
-import { ContextProvider } from './Context/Contextdata.jsx'
+import Addtocart from './Pages/Addtocart.jsx'
+
 
 const router = createBrowserRouter([
   {
@@ -35,12 +34,12 @@ const router = createBrowserRouter([
         element : <Products/>
       },
       {
-        path: '/productcard',
+        path:'/productcard/:id',
         element:<ProductCard/>
       },
       {
-        path:"wishlist",
-        element: <Wishlist/>
+        path:"addcard",
+        element: <Addtocart/> 
       },
       {
         path:"/login",
@@ -57,7 +56,7 @@ const router = createBrowserRouter([
 ])
 
 createRoot(document.getElementById('root')).render(
-  <ContextProvider>
+
     <RouterProvider router={router}/>
-  </ContextProvider>
+
 )

@@ -1,7 +1,7 @@
 import React from "react";
 import Button from "./Button";
 import { useForm } from "react-hook-form";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 import { setdata } from "../Utils/setstorage";
 import { getdata, CART_STORAGE_KEY,PRODUCTS_STORAGE_KEY } from "../Utils/getstorage";
 const Productform = () => {
@@ -11,12 +11,13 @@ const Productform = () => {
     reset,
     formState: { errors },
   } = useForm();
-
+  
+ 
   let navigate = useNavigate();
 
   function formhandle(data) {
     let productdata = getdata(PRODUCTS_STORAGE_KEY) || []; // maine phele data isliye get kiya because i want have array
-    let latestdata = [...productdata, data];  
+    let latestdata = [...productdata, {...data,id:Date.now()}];  
     setdata(PRODUCTS_STORAGE_KEY, latestdata);
     navigate("/createProduct");
     reset();
