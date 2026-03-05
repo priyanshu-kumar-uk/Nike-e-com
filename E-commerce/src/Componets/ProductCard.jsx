@@ -1,6 +1,11 @@
-import {getdata,PRODUCTS_STORAGE_KEY,CART_STORAGE_KEY  } from '../Utils/getstorage'
+import {
+  getdata,
+  PRODUCTS_STORAGE_KEY,
+  CART_STORAGE_KEY,
+} from "../Utils/getstorage";
 import { useNavigate, useParams } from "react-router-dom";
-import {setdata} from '../Utils/setstorage'
+import { setdata } from "../Utils/setstorage";
+import { useState } from "react";
 const ProductCard = () => {
   const sizes = [
     {
@@ -22,24 +27,38 @@ const ProductCard = () => {
       size: "7.5",
     },
   ];
- 
-  let navigate = useNavigate()
 
-  const [cardata, setcardata] = useState(getdata(PRODUCTS_STORAGE_KEY)||[])
-  
-  let {id} = useParams()  
-   
- const datas = cardata.find((elem)=>{
-  return elem.id === Number(id)
- })
+  let navigate = useNavigate();
 
- function addCard(){
-  let actualdata = getdata(CART_STORAGE_KEY)||[]
-  let finaldata = [...actualdata,datas]
-  let exits = 
-  setdata(CART_STORAGE_KEY,finaldata)
-   navigate(`/addcard`)
- }
+  const [cardata, setcardata] = useState(getdata(PRODUCTS_STORAGE_KEY) || []);
+
+  let { id } = useParams();
+
+  const datas = cardata.find((elem) => {
+    return elem.id === Number(id);
+  });
+
+  function addCard() {
+    let actualdata = getdata(CART_STORAGE_KEY) || [];
+
+    let checkq = actualdata.find((elem) => {
+      return elem.id === datas.id;
+    });
+
+    if (checkq) {
+      let updatedData = actualdata.map((item) =>
+        item.id === datas.id ? { ...item, quantity: item.quantity + 1 } : item,
+      );
+
+      setdata(CART_STORAGE_KEY, updatedData);
+    } else {
+      let finaldata = [...actualdata, {...datas, quantity: 1}];
+      setdata(CART_STORAGE_KEY, finaldata);
+    }
+
+    navigate(`/addcard`);
+    setcontrole(false);
+  }
 
   return (
     <div className="productcard">
@@ -47,10 +66,7 @@ const ProductCard = () => {
         <div className="single-card-top">
           <div className="card-left">
             <div className="card-left-img">
-              <img
-                src={datas.URL}
-                alt=""
-              />
+              <img src={datas.URL} alt="" />
             </div>
           </div>
           <div className="card-right">
@@ -65,7 +81,7 @@ const ProductCard = () => {
             <div className="select-size">
               <h2>Select Size</h2>
               <div className="shoes-size">
-                {sizes.map((elem,index) => {
+                {sizes.map((elem, index) => {
                   return (
                     <div className="shoes-size5" key={index}>
                       <h1>UK {elem.size}</h1>
@@ -75,13 +91,17 @@ const ProductCard = () => {
               </div>
             </div>
 
-          <div className="add-cart" onClick={addCard}>ADD TO CART</div>
+            <div className="add-cart" onClick={addCard}>
+              ADD TO CART
+            </div>
           </div>
         </div>
         <div className="w-cart">
           <div className="single-card-bottom">
-          <div className="wishlist-card">WISH  <span>LIST</span></div>
-        </div>
+            <div className="wishlist-card">
+              WISH <span>LIST</span>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -89,4 +109,3 @@ const ProductCard = () => {
 };
 
 export default ProductCard;
-

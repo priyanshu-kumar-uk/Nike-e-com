@@ -7,7 +7,6 @@ import {useState} from 'react'
 const Addtocart = () => {
   // let data = 
   const [removedata, setremovedata] = useState(getdata(CART_STORAGE_KEY) || [])   //ui show data
-  const [num, setNum] = useState(Number(0))
  
 function remove(id){
   let filterdata  =  removedata.filter((elem)=>{
@@ -17,11 +16,6 @@ function remove(id){
    setremovedata(filterdata)                   // for UI
 }
 
-function incree(){
-   
-  setNum(num+1)
-  // let priceincree =   
-}
 
   return (
     <div className="checkout">
@@ -49,8 +43,8 @@ function incree(){
               <button onClick={()=>remove(elem.id)}>
                 <i class="ri-delete-bin-6-line"></i>
               </button>
-              <p>{num}</p>
-              <button onClick={incree}>+</button>
+              <p>{elem.quantity}</p>
+              <button>+</button>
             </div>
             <div className="add-wishlist">
               <i class="ri-heart-line"></i>
@@ -62,11 +56,11 @@ function incree(){
           <div className="shoes-payment">
             <div className="total">
               <h4>Bag Total</h4>
-              <p>₹ {elem.price}</p>
+              <p>₹ {elem.price*elem.quantity}</p>
             </div>
             <div className="total">
               <h4>Sub Total</h4>
-              <p>₹ {elem.price}</p>
+              <p>₹ {elem.price*elem.quantity}</p>
             </div>
             <div className="totalf">
             <h4>Shipping Charges</h4>
@@ -74,7 +68,7 @@ function incree(){
              </div>
             <div className="total">
               <h4>You Pay</h4>
-              <p>₹{elem.price}</p>
+              <p>₹{elem.price*elem.quantity}</p>
             </div>
           </div>
           <div className="payment-btn">
